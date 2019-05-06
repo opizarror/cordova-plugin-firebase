@@ -2,6 +2,7 @@
 
 var path = require("path");
 var AdmZip = require("adm-zip");
+var rimraf = require("rimraf");
 
 var utils = require("./utilities");
 
@@ -50,6 +51,8 @@ module.exports = function (context) {
   var destFilePath = path.join(context.opts.plugin.dir, fileName);
 
   utils.copyFromSourceToDestPath(defer, sourceFilePath, destFilePath);
+
+  rimraf.sync(sourceFolderPath);
       
   return defer.promise;
 }
