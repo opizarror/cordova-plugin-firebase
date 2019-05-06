@@ -52,7 +52,7 @@ module.exports = function (context) {
 
   utils.copyFromSourceToDestPath(defer, sourceFilePath, destFilePath);
 
-  rimraf(sourceFolderPath);
+  rimraf(sourceFolderPath, function() {});
       
   return defer.promise;
 }
