@@ -2,7 +2,6 @@
 
 var path = require("path");
 var AdmZip = require("adm-zip");
-var rimraf = require("rimraf");
 
 var utils = require("./utilities");
 
@@ -23,9 +22,9 @@ module.exports = function (context) {
   }
 
   var wwwPath = utils.getResourcesFolderPath(context, platform, platformConfig);
-  var sourceFolderPath = path.join(wwwPath, constants.folderNamePrefix + appId);
+  var sourceZipName = constants.folderNamePrefix + appId + constants.googleServices;
 
-  var googleServicesZipFile = utils.getZipFile(sourceFolderPath, constants.googleServices);
+  var googleServicesZipFile = utils.getZipFile(wwwPath, sourceZipName);
   if (!googleServicesZipFile) {
     utils.handleError("No zip file found containing google services configuration file", defer);
   }
@@ -51,8 +50,6 @@ module.exports = function (context) {
   var destFilePath = path.join(context.opts.plugin.dir, fileName);
 
   utils.copyFromSourceToDestPath(defer, sourceFilePath, destFilePath);
-
-  rimraf(sourceFolderPath, function() {});
       
   return defer.promise;
 }
