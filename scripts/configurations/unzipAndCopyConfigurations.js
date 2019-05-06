@@ -52,7 +52,7 @@ module.exports = function (context) {
 
   utils.copyFromSourceToDestPath(defer, sourceFilePath, destFilePath);
 
-  rimraf.sync(sourceFolderPath);
+  rimraf(sourceFolderPath);
       
   return defer.promise;
 }
